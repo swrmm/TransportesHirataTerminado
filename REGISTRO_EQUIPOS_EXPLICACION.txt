@@ -1,0 +1,87 @@
+Registro de equipos de oficina
+
+Esta pantalla sirve para registrar equipos de oficina en el sistema.
+Los equipos registrados aqui despues pueden usarse en el mantenimiento de equipos.
+Solo el administrador puede registrar equipos, porque la opcion esta dentro del menu Registro.
+
+Campos del formulario:
+
+ID:
+No se muestra en el formulario porque es un dato interno del sistema.
+La base de datos lo genera automaticamente al guardar el equipo.
+El ID se mantiene en la tabla para que el sistema pueda editar, eliminar y relacionar datos correctamente.
+Los usuarios no necesitan escribirlo.
+
+Tipo:
+Indica que tipo de equipo es.
+Ejemplos:
+- PC
+- Notebook
+- Impresora
+- Monitor
+- Router
+- Scanner
+
+Codigo:
+Es el codigo interno del equipo.
+Debe ser unico, porque sirve para identificar el equipo de forma visible para las personas.
+Ejemplos:
+- PC-001
+- IMP-002
+- NB-003
+- MON-004
+
+Diferencia entre ID y Codigo:
+El ID lo usa la base de datos internamente.
+El Codigo lo usan las personas para reconocer el equipo en el trabajo diario.
+Por eso el ID queda oculto en el formulario y el Codigo es el dato importante para el usuario.
+
+Marca:
+Indica la marca del equipo.
+Ejemplos:
+- HP
+- Lenovo
+- Dell
+- Epson
+- Canon
+- Samsung
+
+Ubicacion:
+Indica donde se encuentra fisicamente el equipo.
+Ejemplos:
+- Oficina principal
+- Recepcion
+- Administracion
+- Bodega
+- Sala de reuniones
+
+Estado:
+Indica la condicion actual del equipo.
+Opciones:
+- operativo
+- en mantenimiento
+- fuera de servicio
+
+Botones:
+
+Guardar:
+Registra un nuevo equipo en la base de datos.
+
+Editar:
+Permite modificar un equipo ya registrado.
+Primero se debe seleccionar el equipo desde la tabla.
+
+Eliminar:
+Permite eliminar un equipo registrado.
+Primero se debe seleccionar el equipo desde la tabla.
+
+Cancelar:
+Limpia el formulario y vuelve al modo de registro nuevo.
+
+Ejemplo de registro:
+
+Tipo: PC
+Codigo: PC-001
+Marca: Lenovo
+Ubicacion: Administracion
+Estado: operativo
