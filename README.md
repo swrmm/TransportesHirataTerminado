@@ -58,6 +58,66 @@ CREATE TABLE MantenimientoEquipo (
     FOREIGN KEY (idEquipo) REFERENCES equipos(idEquipo) ON DELETE CASCADE
 );
 
+CREATE TABLE Software (
+    idSoftware INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL UNIQUE,
+    versionActual VARCHAR(50) NOT NULL,
+    proveedor VARCHAR(100),
+    tipo VARCHAR(50) NOT NULL,
+    estado VARCHAR(25) NOT NULL
+);
+
+CREATE TABLE SoftwareEquipo (
+    idSoftwareEquipo INT AUTO_INCREMENT PRIMARY KEY,
+    idEquipo INT NOT NULL,
+    idSoftware INT NOT NULL,
+    versionInstalada VARCHAR(50) NOT NULL,
+    fechaInstalacion DATE NOT NULL,
+    estado VARCHAR(25) NOT NULL,
+    UNIQUE KEY uk_software_equipo (idEquipo, idSoftware),
+    FOREIGN KEY (idEquipo) REFERENCES equipos(idEquipo) ON DELETE CASCADE,
+    FOREIGN KEY (idSoftware) REFERENCES Software(idSoftware) ON DELETE CASCADE
+);
+
+CREATE TABLE ActualizacionSoftware (
+    idActualizacion INT AUTO_INCREMENT PRIMARY KEY,
+    fechaActualizacion DATE NOT NULL,
+    versionAnterior VARCHAR(50),
+    versionNueva VARCHAR(50) NOT NULL,
+    tecnicoResponsable VARCHAR(100) NOT NULL,
+    estado VARCHAR(25) NOT NULL,
+    observaciones TEXT,
+    idEquipo INT NOT NULL,
+    idSoftware INT NOT NULL,
+    FOREIGN KEY (idEquipo) REFERENCES equipos(idEquipo) ON DELETE CASCADE,
+    FOREIGN KEY (idSoftware) REFERENCES Software(idSoftware) ON DELETE CASCADE
+);
+
+CREATE TABLE Pieza (
+    idPieza INT AUTO_INCREMENT PRIMARY KEY,
+    codigo VARCHAR(20) NOT NULL UNIQUE,
+    nombre VARCHAR(100) NOT NULL,
+    categoria VARCHAR(50) NOT NULL,
+    marca VARCHAR(50),
+    stockActual INT NOT NULL DEFAULT 0,
+    stockMinimo INT NOT NULL DEFAULT 0,
+    ubicacion VARCHAR(50),
+    estado VARCHAR(25) NOT NULL
+);
+
+CREATE TABLE MovimientoInventario (
+    idMovimiento INT AUTO_INCREMENT PRIMARY KEY,
+    fecha DATE NOT NULL,
+    tipoMovimiento VARCHAR(20) NOT NULL,
+    cantidad INT NOT NULL,
+    motivo VARCHAR(150) NOT NULL,
+    tecnicoResponsable VARCHAR(100) NOT NULL,
+    idPieza INT NOT NULL,
+    idMantenimientoEquipo INT,
+    FOREIGN KEY (idPieza) REFERENCES Pieza(idPieza) ON DELETE CASCADE,
+    FOREIGN KEY (idMantenimientoEquipo) REFERENCES MantenimientoEquipo(idMantenimientoEquipo) ON DELETE SET NULL
+);
+
 CREATE TABLE Usuario (
     idUsuario INT AUTO_INCREMENT PRIMARY KEY,
     rut VARCHAR(12) UNIQUE NOT NULL,
@@ -79,10 +139,13 @@ select * from usuario;
 Administrador:
 - Puede registrar camiones, conductores, equipos y personal.
 - Puede registrar mantenimientos de camiones y equipos.
+- Puede registrar inventario de piezas y controlar movimientos de stock.
+- Puede registrar actualizaciones de software en equipos.
 - Puede ver historiales de mantenimiento.
 
 Personal:
 - Puede registrar mantenimientos de equipos de oficina.
+- Puede registrar actualizaciones de software en equipos.
 - No puede registrar camiones, conductores, equipos ni personal.
 - No puede realizar mantenimientos de camiones.
 - No puede ver historiales de mantenimiento ni actualizar kilometraje.

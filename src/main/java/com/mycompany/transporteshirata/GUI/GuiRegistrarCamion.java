@@ -341,12 +341,26 @@ public class GuiRegistrarCamion extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "Formato de Patente inválido. Use formatos como AB-12-34 o AB-CD-12.");
             return;
         }
+        int anio;
+        int kilometraje;
+        try {
+            anio = Integer.parseInt(this.txt_anio.getText().trim());
+            kilometraje = Integer.parseInt(this.txt_kilometraje.getText().trim());
+            if (anio <= 0 || kilometraje < 0) {
+                JOptionPane.showMessageDialog(this, "Anio y kilometraje deben ser valores validos.");
+                return;
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Anio y kilometraje deben ser numericos.");
+            return;
+        }
+
         Camion c = new Camion();
         c.setPatente(this.txt_patente.getText());
         c.setMarca(this.txt_marca.getText());
         c.setModelo(this.txt_modelo.getText());
-        c.setAnio(Integer.valueOf(this.txt_anio.getText()));
-        c.setKilometrajeActual(Integer.valueOf(this.txt_kilometraje.getText()));
+        c.setAnio(anio);
+        c.setKilometrajeActual(kilometraje);
 
         if (cmb_conductor.getSelectedIndex() > 0) {
             Conductor conductorSeleccionado = (Conductor) cmb_conductor.getSelectedItem();
@@ -358,7 +372,9 @@ public class GuiRegistrarCamion extends javax.swing.JInternalFrame {
             c.setConductor(vacio);
         }
 
-        dc.registrarCamion(c);
+        if (!dc.registrarCamion(c)) {
+            return;
+        }
         cargarTabla();
         JOptionPane.showMessageDialog(this, "✅ Camión guardado exitosamente");
         cambiarAModoNuevo();
@@ -421,6 +437,8 @@ public class GuiRegistrarCamion extends javax.swing.JInternalFrame {
         this.txt_marca.setText("");
         this.txt_anio.setText("");
         this.txt_kilometraje.setText("");
+        this.cmb_conductor.setSelectedIndex(0);
+        this.tbl_camion.clearSelection();
     }
     private void bt_cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_cancelarActionPerformed
         cambiarAModoNuevo();
@@ -443,6 +461,10 @@ public class GuiRegistrarCamion extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "Formato de Patente inválido. Use formatos como AB1234 o ABCD12.");
             return;
         }
+        if (this.txt_id.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Seleccione un camion de la tabla.");
+            return;
+        }
         Integer id_seleccionado = Integer.parseInt(this.txt_id.getText());
         System.out.println("ID seleccionado: " + id_seleccionado);
 
@@ -462,8 +484,13 @@ public class GuiRegistrarCamion extends javax.swing.JInternalFrame {
         c_encontrado.setPatente(this.txt_patente.getText());
         c_encontrado.setMarca(this.txt_marca.getText());
         c_encontrado.setModelo(this.txt_modelo.getText());
-        c_encontrado.setAnio(Integer.parseInt(this.txt_anio.getText()));
-        c_encontrado.setKilometrajeActual(Integer.parseInt(this.txt_kilometraje.getText()));
+        try {
+            c_encontrado.setAnio(Integer.parseInt(this.txt_anio.getText().trim()));
+            c_encontrado.setKilometrajeActual(Integer.parseInt(this.txt_kilometraje.getText().trim()));
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Anio y kilometraje deben ser numericos.");
+            return;
+        }
 
         if (!this.txt_id.getText().trim().isEmpty()) {
             c_encontrado.setIdCamion(Integer.parseInt(this.txt_id.getText()));
@@ -476,7 +503,9 @@ public class GuiRegistrarCamion extends javax.swing.JInternalFrame {
             vacio.setIdConductor(0);
             c_encontrado.setConductor(vacio);
         }
-        dc.modificarCamion(c_encontrado);
+        if (!dc.modificarCamion(c_encontrado)) {
+            return;
+        }
 
         cargarTabla();
         this.limpiarFormulario();
@@ -484,11 +513,20 @@ public class GuiRegistrarCamion extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_bt_editarActionPerformed
 
     private void bt_eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_eliminarActionPerformed
-        Integer id_seleccionado = Integer.parseInt(this.txt_id.getText());
-        dc.eliminarCamion(id_seleccionado);
-        cambiarAModoNuevo();
-        cargarTabla();
-        this.limpiarFormulario();
+        if (this.txt_id.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Seleccione un camion de la tabla.");
+            return;
+        }
+        int confirmacion = JOptionPane.showConfirmDialog(this, "Esta seguro de eliminar este camion?", "Confirmar eliminacion", JOptionPane.YES_NO_OPTION);
+        if (confirmacion == JOptionPane.YES_OPTION) {
+            Integer id_seleccionado = Integer.parseInt(this.txt_id.getText());
+            if (dc.eliminarCamion(id_seleccionado)) {
+                cambiarAModoNuevo();
+                cargarTabla();
+                this.limpiarFormulario();
+                JOptionPane.showMessageDialog(this, "Camion eliminado correctamente.");
+            }
+        }
     }//GEN-LAST:event_bt_eliminarActionPerformed
     CamionDao dc = new CamionDao();
     ConductoDao cd = new ConductoDao();

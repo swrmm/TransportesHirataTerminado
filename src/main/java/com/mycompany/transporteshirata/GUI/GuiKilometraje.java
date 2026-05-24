@@ -28,6 +28,7 @@ public class GuiKilometraje extends javax.swing.JFrame {
         cargarTabla();
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         setLocationRelativeTo(null);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
     }
 
@@ -66,7 +67,7 @@ public class GuiKilometraje extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         bt_registrar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         tbl_camion.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -189,7 +190,11 @@ public class GuiKilometraje extends javax.swing.JFrame {
         try {
             int idCamion = (int) tbl_camion.getValueAt(fila, 0);
             int kmActualBD = (int) tbl_camion.getValueAt(fila, 2);
-            int kmNuevos = Integer.parseInt(txt_km_hoy.getText());
+            if (txt_km_hoy.getText().trim().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Ingrese el kilometraje a sumar.");
+                return;
+            }
+            int kmNuevos = Integer.parseInt(txt_km_hoy.getText().trim());
             if (kmNuevos <= 0) {
                 JOptionPane.showMessageDialog(this, "Error: Los kilómetros recorridos deben ser mayores a 0.");
                 return; 
@@ -225,7 +230,7 @@ public class GuiKilometraje extends javax.swing.JFrame {
     }//GEN-LAST:event_bt_registrarActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       this.setVisible(false);
+       this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void tbl_camionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_camionMouseClicked

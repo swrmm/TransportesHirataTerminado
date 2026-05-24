@@ -88,7 +88,7 @@ public class CamionDao {
 
    
     public boolean modificarCamion(Camion c) {
-        String sql = "UPDATE Camion SET patente=?, marca=?, modelo=?, anio=?, idConductor=? WHERE idCamion=?";
+        String sql = "UPDATE Camion SET patente=?, marca=?, modelo=?, anio=?, kilometrajeActual=?, idConductor=? WHERE idCamion=?";
         try {
             con = Conexion.getConexion();
             ps = con.prepareStatement(sql);
@@ -97,13 +97,15 @@ public class CamionDao {
             ps.setString(3, c.getModelo());
             ps.setInt(4, c.getAnio());
             
+            ps.setInt(5, c.getKilometrajeActual());
+            
             if(c.getConductor().getIdConductor() == 0) {
-                ps.setNull(5, java.sql.Types.INTEGER);
+                ps.setNull(6, java.sql.Types.INTEGER);
             } else {
-                ps.setInt(5, c.getConductor().getIdConductor());
+                ps.setInt(6, c.getConductor().getIdConductor());
             }
             
-            ps.setInt(6, c.getIdCamion());
+            ps.setInt(7, c.getIdCamion());
             ps.execute();
             return true;
         } catch (SQLException e) {

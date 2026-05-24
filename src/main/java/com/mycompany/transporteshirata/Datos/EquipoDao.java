@@ -79,6 +79,36 @@ public class EquipoDao {
         }
     }
 
+    public int obtenerSiguienteNumeroCodigo(String prefijo) {
+        int ultimoNumero = 0;
+        String sql = "SELECT codigo FROM equipos WHERE codigo LIKE ?";
+
+        try {
+            con = Conexion.getConexion();
+            ps = con.prepareStatement(sql);
+            ps.setString(1, prefijo + "-%");
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                String codigo = rs.getString("codigo");
+                if (codigo != null && codigo.startsWith(prefijo + "-")) {
+                    try {
+                        int numero = Integer.parseInt(codigo.substring(prefijo.length() + 1));
+                        if (numero > ultimoNumero) {
+                            ultimoNumero = numero;
+                        }
+                    } catch (NumberFormatException e) {
+                        // Ignora codigos antiguos que no usan el formato automatico.
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al generar codigo de equipo: " + e.toString());
+        }
+
+        return ultimoNumero + 1;
+    }
+
     public boolean registrarEquipo(Equipo e) {
         String sql = "INSERT INTO equipos (tipo, codigo, marca, ubicacion, estado) VALUES (?, ?, ?, ?, ?)";
 

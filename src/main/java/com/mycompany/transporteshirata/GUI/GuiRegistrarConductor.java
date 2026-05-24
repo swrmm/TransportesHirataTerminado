@@ -114,8 +114,18 @@ public static boolean validarRut(String rut) {
         });
 
         bt_eliminar.setText("Eliminar");
+        bt_eliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_eliminarActionPerformed(evt);
+            }
+        });
 
         bt_cancelar.setText("Cancelar");
+        bt_cancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_cancelarActionPerformed(evt);
+            }
+        });
 
         jLabel6.setText("Contraseña");
 
@@ -322,7 +332,9 @@ public static boolean validarRut(String rut) {
         con.setLicencia(this.txt_licencia.getText());
         con.setTelefono(this.txt_telefono.getText());
         con.setClave(this.txt_clave.getText());
-        dcon.registrarConductor(con);
+        if (!dcon.registrarConductor(con)) {
+            return;
+        }
 
         cargarTabla();
         JOptionPane.showMessageDialog(this, "✅ Conductor registrado");
@@ -421,12 +433,36 @@ public static boolean validarRut(String rut) {
             dcon_encontrado.setIdConductor(Integer.parseInt(this.txt_id.getText()));
         }
 
-        dcon.modificarConductor(dcon_encontrado);
+        if (!dcon.modificarConductor(dcon_encontrado)) {
+            return;
+        }
 
         cargarTabla();
         this.limpiarFormulario();
         cambiarAModoNuevo();
     }//GEN-LAST:event_bt_editarActionPerformed
+
+    private void bt_eliminarActionPerformed(java.awt.event.ActionEvent evt) {
+        if (this.txt_id.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Seleccione un conductor de la tabla.");
+            return;
+        }
+
+        int confirmacion = JOptionPane.showConfirmDialog(this, "Esta seguro de eliminar este conductor?", "Confirmar eliminacion", JOptionPane.YES_NO_OPTION);
+        if (confirmacion == JOptionPane.YES_OPTION) {
+            int idConductor = Integer.parseInt(this.txt_id.getText());
+            if (dcon.eliminarConductor(idConductor)) {
+                cargarTabla();
+                limpiarFormulario();
+                cambiarAModoNuevo();
+                JOptionPane.showMessageDialog(this, "Conductor eliminado correctamente.");
+            }
+        }
+    }
+
+    private void bt_cancelarActionPerformed(java.awt.event.ActionEvent evt) {
+        cambiarAModoNuevo();
+    }
     ConductoDao dcon = new ConductoDao();
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

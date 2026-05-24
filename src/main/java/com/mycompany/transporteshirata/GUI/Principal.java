@@ -45,10 +45,12 @@ public class Principal extends javax.swing.JFrame {
         openMenuItem = new javax.swing.JMenuItem();
         openMenuItem1 = new javax.swing.JMenuItem();
         openMenuItem4 = new javax.swing.JMenuItem();
+        openMenuItemInventarioPiezas = new javax.swing.JMenuItem();
         openMenuItemPersonal = new javax.swing.JMenuItem();
         bt_menu2 = new javax.swing.JMenu();
         bt_mantenimiento = new javax.swing.JMenuItem();
         bt_mantenimiento2 = new javax.swing.JMenuItem();
+        jMenuItemActualizacionSoftware = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItemHistorialEquipos = new javax.swing.JMenuItem();
         bt_menu3 = new javax.swing.JMenu();
@@ -102,6 +104,16 @@ public class Principal extends javax.swing.JFrame {
         });
         bt_menu1.add(openMenuItem4);
 
+        openMenuItemInventarioPiezas.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
+        openMenuItemInventarioPiezas.setMnemonic('o');
+        openMenuItemInventarioPiezas.setText("Inventario de piezas");
+        openMenuItemInventarioPiezas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                openMenuItemInventarioPiezasActionPerformed(evt);
+            }
+        });
+        bt_menu1.add(openMenuItemInventarioPiezas);
+
         openMenuItemPersonal.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
         openMenuItemPersonal.setMnemonic('o');
         openMenuItemPersonal.setText("Registrar personal");
@@ -137,6 +149,15 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         bt_menu2.add(bt_mantenimiento2);
+
+        jMenuItemActualizacionSoftware.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
+        jMenuItemActualizacionSoftware.setText("Actualizar software de equipo");
+        jMenuItemActualizacionSoftware.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemActualizacionSoftwareActionPerformed(evt);
+            }
+        });
+        bt_menu2.add(jMenuItemActualizacionSoftware);
 
         jMenuItem1.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
         jMenuItem1.setText("Historial Mantenimiento");
@@ -264,6 +285,12 @@ public class Principal extends javax.swing.JFrame {
         re.setVisible(true);
     }//GEN-LAST:event_openMenuItem4ActionPerformed
 
+    private void openMenuItemInventarioPiezasActionPerformed(java.awt.event.ActionEvent evt) {
+        GuiInventarioPiezas ip = new GuiInventarioPiezas();
+        desktopPane.add(ip);
+        ip.setVisible(true);
+    }
+
     private void openMenuItemPersonalActionPerformed(java.awt.event.ActionEvent evt) {
         GuiRegistrarPersonal rp = new GuiRegistrarPersonal();
         desktopPane.add(rp);
@@ -281,6 +308,12 @@ public class Principal extends javax.swing.JFrame {
         desktopPane.add(me);
         me.setVisible(true);
     }//GEN-LAST:event_bt_mantenimiento2ActionPerformed
+
+    private void jMenuItemActualizacionSoftwareActionPerformed(java.awt.event.ActionEvent evt) {
+        GuiActualizacionSoftware as = new GuiActualizacionSoftware();
+        desktopPane.add(as);
+        as.setVisible(true);
+    }
 
     /**
      * @param args the command line arguments
@@ -328,6 +361,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JDesktopPane desktopPane;
     private javax.swing.JButton jButton1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItemActualizacionSoftware;
     private javax.swing.JMenuItem jMenuItemHistorialEquipos;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuBar menuBar;
@@ -335,6 +369,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem openMenuItem1;
     private javax.swing.JMenuItem openMenuItem4;
     private javax.swing.JMenuItem openMenuItem5;
+    private javax.swing.JMenuItem openMenuItemInventarioPiezas;
     private javax.swing.JMenuItem openMenuItemPersonal;
     // End of variables declaration//GEN-END:variables
 

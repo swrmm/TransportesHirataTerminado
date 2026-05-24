@@ -6,8 +6,10 @@ package com.mycompany.transporteshirata.GUI;
 
 import com.mycompany.transporteshirata.Datos.EquipoDao;
 import com.mycompany.transporteshirata.Datos.MantenimientoEquipoDao;
+import com.mycompany.transporteshirata.Datos.PiezaDao;
 import com.mycompany.transporteshirata.Logica.Equipo;
 import com.mycompany.transporteshirata.Logica.MantenimientoEquipo;
+import com.mycompany.transporteshirata.Logica.Pieza;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.time.LocalDate;
@@ -34,6 +36,7 @@ public class GuiMantenimientoEquipos extends javax.swing.JInternalFrame {
         int y = (pantalla.height - this.getHeight());
         this.setLocation(x / 2 + 150, y / 2 - 40);
         cargarTabla();
+        cargarPiezas();
     }
 
     @SuppressWarnings("unchecked")
@@ -59,6 +62,11 @@ public class GuiMantenimientoEquipos extends javax.swing.JInternalFrame {
         txt_observaciones = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         cmb_estado = new javax.swing.JComboBox<>();
+        chk_usar_pieza = new javax.swing.JCheckBox();
+        jLabel9 = new javax.swing.JLabel();
+        cmb_pieza = new javax.swing.JComboBox<>();
+        jLabel10 = new javax.swing.JLabel();
+        txt_cantidad_pieza = new javax.swing.JTextField();
         bt_guardar = new javax.swing.JButton();
         bt_cancelar = new javax.swing.JButton();
 
@@ -123,6 +131,19 @@ public class GuiMantenimientoEquipos extends javax.swing.JInternalFrame {
         jLabel8.setText("Estado");
         cmb_estado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{"realizado", "pendiente"}));
 
+        chk_usar_pieza.setText("Usar pieza de inventario");
+        chk_usar_pieza.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chk_usar_piezaActionPerformed(evt);
+            }
+        });
+
+        jLabel9.setText("Pieza");
+        cmb_pieza.setEnabled(false);
+
+        jLabel10.setText("Cantidad");
+        txt_cantidad_pieza.setEnabled(false);
+
         bt_guardar.setText("Guardar");
         bt_guardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -153,7 +174,9 @@ public class GuiMantenimientoEquipos extends javax.swing.JInternalFrame {
                                                         .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
                                                         .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                                         .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                        .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                                        .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                        .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                        .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                         .addComponent(txt_id)
@@ -163,7 +186,12 @@ public class GuiMantenimientoEquipos extends javax.swing.JInternalFrame {
                                                         .addComponent(txt_descripcion)
                                                         .addComponent(txt_tecnico)
                                                         .addComponent(txt_observaciones)
-                                                        .addComponent(cmb_estado, 0, 404, Short.MAX_VALUE)))
+                                                        .addComponent(cmb_estado, 0, 404, Short.MAX_VALUE)
+                                                        .addComponent(cmb_pieza, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                        .addComponent(txt_cantidad_pieza)))
+                                        .addGroup(jPanel2Layout.createSequentialGroup()
+                                                .addComponent(chk_usar_pieza)
+                                                .addGap(0, 0, Short.MAX_VALUE))
                                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                                                 .addGap(0, 0, Short.MAX_VALUE)
                                                 .addComponent(bt_guardar)
@@ -206,6 +234,16 @@ public class GuiMantenimientoEquipos extends javax.swing.JInternalFrame {
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                         .addComponent(jLabel8)
                                         .addComponent(cmb_estado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addComponent(chk_usar_pieza)
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jLabel9)
+                                        .addComponent(cmb_pieza, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jLabel10)
+                                        .addComponent(txt_cantidad_pieza, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                         .addComponent(bt_guardar)
@@ -260,6 +298,15 @@ public class GuiMantenimientoEquipos extends javax.swing.JInternalFrame {
         }
     }
 
+    private void cargarPiezas() {
+        cmb_pieza.removeAllItems();
+        for (Pieza p : piezaDao.listarPiezas()) {
+            if (p.getStockActual() > 0) {
+                cmb_pieza.addItem(p);
+            }
+        }
+    }
+
     public void limpiarFormulario() {
         this.idEquipoSeleccionado = 0;
         this.txt_id.setText("");
@@ -271,6 +318,11 @@ public class GuiMantenimientoEquipos extends javax.swing.JInternalFrame {
         this.tbl_equipos.clearSelection();
         this.cmb_tipo.setSelectedIndex(0);
         this.cmb_estado.setSelectedIndex(0);
+        this.chk_usar_pieza.setSelected(false);
+        this.cmb_pieza.setEnabled(false);
+        this.txt_cantidad_pieza.setEnabled(false);
+        this.txt_cantidad_pieza.setText("");
+        cargarPiezas();
     }
 
     private void tbl_equiposMouseClicked(java.awt.event.MouseEvent evt) {
@@ -319,12 +371,52 @@ public class GuiMantenimientoEquipos extends javax.swing.JInternalFrame {
             mantenimiento.setObservaciones(txt_observaciones.getText());
             mantenimiento.setEstado(cmb_estado.getSelectedItem().toString());
 
-            if (mantenimientoEquipoDao.registrarMantenimientoEquipo(mantenimiento)) {
+            Pieza pieza = null;
+            int cantidadPieza = 0;
+            if (chk_usar_pieza.isSelected()) {
+                pieza = (Pieza) cmb_pieza.getSelectedItem();
+                if (pieza == null) {
+                    JOptionPane.showMessageDialog(this, "No hay piezas disponibles en inventario.");
+                    return;
+                }
+                try {
+                    cantidadPieza = Integer.parseInt(txt_cantidad_pieza.getText().trim());
+                } catch (NumberFormatException e) {
+                    JOptionPane.showMessageDialog(this, "La cantidad de piezas debe ser numerica.");
+                    return;
+                }
+                if (cantidadPieza <= 0) {
+                    JOptionPane.showMessageDialog(this, "La cantidad de piezas debe ser mayor a cero.");
+                    return;
+                }
+                if (cantidadPieza > pieza.getStockActual()) {
+                    JOptionPane.showMessageDialog(this, "No hay stock suficiente para usar esta pieza.");
+                    return;
+                }
+            }
+
+            boolean registrado;
+            if (pieza != null) {
+                registrado = mantenimientoEquipoDao.registrarMantenimientoEquipoConPieza(mantenimiento, pieza, cantidadPieza);
+            } else {
+                registrado = mantenimientoEquipoDao.registrarMantenimientoEquipo(mantenimiento);
+            }
+
+            if (registrado) {
                 JOptionPane.showMessageDialog(this, "Mantenimiento de equipo registrado correctamente.");
                 limpiarFormulario();
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error en los datos. Revise el formato.");
+        }
+    }
+
+    private void chk_usar_piezaActionPerformed(java.awt.event.ActionEvent evt) {
+        boolean usarPieza = chk_usar_pieza.isSelected();
+        cmb_pieza.setEnabled(usarPieza);
+        txt_cantidad_pieza.setEnabled(usarPieza);
+        if (!usarPieza) {
+            txt_cantidad_pieza.setText("");
         }
     }
 
@@ -334,9 +426,12 @@ public class GuiMantenimientoEquipos extends javax.swing.JInternalFrame {
 
     EquipoDao equipoDao = new EquipoDao();
     MantenimientoEquipoDao mantenimientoEquipoDao = new MantenimientoEquipoDao();
+    PiezaDao piezaDao = new PiezaDao();
     private javax.swing.JButton bt_cancelar;
     private javax.swing.JButton bt_guardar;
+    private javax.swing.JCheckBox chk_usar_pieza;
     private javax.swing.JComboBox<String> cmb_estado;
+    private javax.swing.JComboBox<Pieza> cmb_pieza;
     private javax.swing.JComboBox<String> cmb_tipo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -346,9 +441,12 @@ public class GuiMantenimientoEquipos extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField txt_cantidad_pieza;
     private javax.swing.JTable tbl_equipos;
     private javax.swing.JTextField txt_descripcion;
     private javax.swing.JTextField txt_equipo;

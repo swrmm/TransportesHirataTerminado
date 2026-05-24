@@ -41,7 +41,7 @@ public class GuiRegistrarEquipo extends javax.swing.JInternalFrame {
         jLabel1 = new javax.swing.JLabel();
         txt_id = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        txt_tipo = new javax.swing.JTextField();
+        cmb_tipo = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
         txt_codigo = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
@@ -69,8 +69,17 @@ public class GuiRegistrarEquipo extends javax.swing.JInternalFrame {
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel2.setText("Tipo");
 
+        cmb_tipo.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
+        cmb_tipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{"Computador", "Impresora", "Telefono"}));
+        cmb_tipo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmb_tipoActionPerformed(evt);
+            }
+        });
+
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel3.setText("Codigo");
+        txt_codigo.setEditable(false);
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel4.setText("Marca");
@@ -132,7 +141,7 @@ public class GuiRegistrarEquipo extends javax.swing.JInternalFrame {
                                 .addGap(28, 28, 28)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(txt_id)
-                                        .addComponent(txt_tipo)
+                                        .addComponent(cmb_tipo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(txt_codigo)
                                         .addComponent(txt_marca)
                                         .addComponent(txt_ubicacion)
@@ -159,7 +168,7 @@ public class GuiRegistrarEquipo extends javax.swing.JInternalFrame {
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                         .addComponent(jLabel2)
-                                        .addComponent(txt_tipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(cmb_tipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                         .addComponent(jLabel3)
@@ -280,8 +289,8 @@ public class GuiRegistrarEquipo extends javax.swing.JInternalFrame {
 
     public void limpiarFormulario() {
         this.txt_id.setText("");
-        this.txt_tipo.setText("");
-        this.txt_codigo.setText("");
+        this.cmb_tipo.setSelectedIndex(0);
+        actualizarCodigoAutomatico();
         this.txt_marca.setText("");
         this.txt_ubicacion.setText("");
         this.cmb_estado.setSelectedIndex(0);
@@ -289,7 +298,7 @@ public class GuiRegistrarEquipo extends javax.swing.JInternalFrame {
     }
 
     private boolean validarFormulario() {
-        if (txt_tipo.getText().trim().isEmpty() || txt_codigo.getText().trim().isEmpty()
+        if (txt_codigo.getText().trim().isEmpty()
                 || txt_marca.getText().trim().isEmpty() || txt_ubicacion.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Por favor, llene todos los campos del equipo.");
             return false;
@@ -308,7 +317,7 @@ public class GuiRegistrarEquipo extends javax.swing.JInternalFrame {
         if (!txt_id.getText().trim().isEmpty()) {
             e.setIdEquipo(Integer.parseInt(txt_id.getText()));
         }
-        e.setTipo(txt_tipo.getText().trim());
+        e.setTipo(cmb_tipo.getSelectedItem().toString());
         e.setCodigo(txt_codigo.getText().trim());
         e.setMarca(txt_marca.getText().trim());
         e.setUbicacion(txt_ubicacion.getText().trim());
@@ -316,7 +325,47 @@ public class GuiRegistrarEquipo extends javax.swing.JInternalFrame {
         return e;
     }
 
+    private String obtenerPrefijoTipoSeleccionado() {
+        String tipo = cmb_tipo.getSelectedItem().toString();
+        if ("Computador".equals(tipo)) {
+            return "PC";
+        }
+        if ("Impresora".equals(tipo)) {
+            return "IMP";
+        }
+        return "TEL";
+    }
+
+    private void actualizarCodigoAutomatico() {
+        if (!txt_id.getText().trim().isEmpty()) {
+            return;
+        }
+
+        String prefijo = obtenerPrefijoTipoSeleccionado();
+        int siguienteNumero = equipoDao.obtenerSiguienteNumeroCodigo(prefijo);
+        txt_codigo.setText(String.format("%s-%03d", prefijo, siguienteNumero));
+    }
+
+    private void generarCodigoPorCambioDeTipo() {
+        String prefijo = obtenerPrefijoTipoSeleccionado();
+        int siguienteNumero = equipoDao.obtenerSiguienteNumeroCodigo(prefijo);
+        txt_codigo.setText(String.format("%s-%03d", prefijo, siguienteNumero));
+    }
+
+    private void seleccionarTipo(String tipo) {
+        if ("Computador".equalsIgnoreCase(tipo) || (tipo != null && tipo.toUpperCase().startsWith("PC"))) {
+            cmb_tipo.setSelectedItem("Computador");
+        } else if ("Impresora".equalsIgnoreCase(tipo) || (tipo != null && tipo.toUpperCase().startsWith("IMP"))) {
+            cmb_tipo.setSelectedItem("Impresora");
+        } else if ("Telefono".equalsIgnoreCase(tipo) || "Teléfono".equalsIgnoreCase(tipo) || (tipo != null && tipo.toUpperCase().startsWith("TEL"))) {
+            cmb_tipo.setSelectedItem("Telefono");
+        } else {
+            cmb_tipo.setSelectedItem("Computador");
+        }
+    }
+
     private void bt_guardarActionPerformed(java.awt.event.ActionEvent evt) {
+        actualizarCodigoAutomatico();
         if (!validarFormulario()) {
             return;
         }
@@ -338,7 +387,7 @@ public class GuiRegistrarEquipo extends javax.swing.JInternalFrame {
         int selectedRow = this.tbl_equipo.getSelectedRow();
         if (selectedRow != -1) {
             this.txt_id.setText(tbl_equipo.getValueAt(selectedRow, 0).toString());
-            this.txt_tipo.setText(tbl_equipo.getValueAt(selectedRow, 1).toString());
+            seleccionarTipo(tbl_equipo.getValueAt(selectedRow, 1).toString());
             this.txt_codigo.setText(tbl_equipo.getValueAt(selectedRow, 2).toString());
             this.txt_marca.setText(tbl_equipo.getValueAt(selectedRow, 3).toString());
             this.txt_ubicacion.setText(tbl_equipo.getValueAt(selectedRow, 4).toString());
@@ -390,12 +439,23 @@ public class GuiRegistrarEquipo extends javax.swing.JInternalFrame {
         cambiarAModoNuevo();
     }
 
+    private void cmb_tipoActionPerformed(java.awt.event.ActionEvent evt) {
+        if (txt_id != null && txt_codigo != null) {
+            if (txt_id.getText().trim().isEmpty()) {
+                actualizarCodigoAutomatico();
+            } else {
+                generarCodigoPorCambioDeTipo();
+            }
+        }
+    }
+
     EquipoDao equipoDao = new EquipoDao();
     private javax.swing.JButton bt_cancelar;
     private javax.swing.JButton bt_editar;
     private javax.swing.JButton bt_eliminar;
     private javax.swing.JButton bt_guardar;
     private javax.swing.JComboBox<String> cmb_estado;
+    private javax.swing.JComboBox<String> cmb_tipo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -409,6 +469,5 @@ public class GuiRegistrarEquipo extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txt_codigo;
     private javax.swing.JTextField txt_id;
     private javax.swing.JTextField txt_marca;
-    private javax.swing.JTextField txt_tipo;
     private javax.swing.JTextField txt_ubicacion;
 }

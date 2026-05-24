@@ -137,6 +137,11 @@ public class GuiMantenimiento extends javax.swing.JInternalFrame {
         });
 
         bt_cancelar.setText("Cancelar");
+        bt_cancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_cancelarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -308,6 +313,11 @@ public class GuiMantenimiento extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
         }
     }//GEN-LAST:event_bt_guardarActionPerformed
+
+    private void bt_cancelarActionPerformed(java.awt.event.ActionEvent evt) {
+        idCamionSeleccionado = 0;
+        limpiarFormulario();
+    }
 
     CamionDao dc = new CamionDao();
     // Variables declaration - do not modify//GEN-BEGIN:variables
