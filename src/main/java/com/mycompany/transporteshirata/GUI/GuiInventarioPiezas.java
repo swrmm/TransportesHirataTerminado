@@ -11,10 +11,19 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
+/**
+ * Ventana interna para la gestión del inventario de piezas de repuesto. Permite
+ * registrar, editar y eliminar piezas, así como registrar movimientos de stock
+ * (entradas, salidas, ajustes) y visualizar el historial de movimientos.
+ */
 public class GuiInventarioPiezas extends javax.swing.JInternalFrame {
 
     private int idPiezaSeleccionada = 0;
 
+    /**
+     * Constructor. Inicializa la interfaz gráfica, centra la ventana, carga la
+     * tabla de piezas y movimientos, y deja el formulario en modo "nuevo".
+     */
     public GuiInventarioPiezas() {
         initComponents();
         this.setTitle("     Inventario de Piezas     ");
@@ -240,6 +249,9 @@ public class GuiInventarioPiezas extends javax.swing.JInternalFrame {
         pack();
     }
 
+    /**
+     * Carga la tabla con todas las piezas registradas.
+     */
     private void cargarTablaPiezas() {
         String col[] = {"ID", "Codigo", "Nombre", "Categoria", "Stock", "Minimo", "Estado"};
         DefaultTableModel tableModel = new DefaultTableModel(col, 0);
@@ -249,6 +261,9 @@ public class GuiInventarioPiezas extends javax.swing.JInternalFrame {
         tbl_piezas.setModel(tableModel);
     }
 
+    /**
+     * Carga la tabla con todos los movimientos de inventario registrados.
+     */
     private void cargarTablaMovimientos() {
         String col[] = {"Fecha", "Tipo", "Pieza", "Cantidad", "Responsable", "Motivo"};
         DefaultTableModel tableModel = new DefaultTableModel(col, 0);
@@ -258,6 +273,10 @@ public class GuiInventarioPiezas extends javax.swing.JInternalFrame {
         tbl_movimientos.setModel(tableModel);
     }
 
+    /**
+     * Cambia la interfaz a modo "nuevo": habilita el botón Guardar, deshabilita
+     * Editar/Eliminar y limpia el formulario.
+     */
     private void cambiarAModoNuevo() {
         bt_guardar.setEnabled(true);
         bt_editar.setEnabled(false);
@@ -265,12 +284,19 @@ public class GuiInventarioPiezas extends javax.swing.JInternalFrame {
         limpiarFormulario();
     }
 
+    /**
+     * Cambia la interfaz a modo "edición": deshabilita Guardar, habilita Editar
+     * y Eliminar.
+     */
     private void cambiarAModoEdicion() {
         bt_guardar.setEnabled(false);
         bt_editar.setEnabled(true);
         bt_eliminar.setEnabled(true);
     }
 
+    /**
+     * Limpia todos los campos del formulario de piezas y movimientos.
+     */
     private void limpiarFormulario() {
         idPiezaSeleccionada = 0;
         txt_id.setText("");
@@ -289,6 +315,12 @@ public class GuiInventarioPiezas extends javax.swing.JInternalFrame {
         tbl_piezas.clearSelection();
     }
 
+    /**
+     * Valida que los campos obligatorios del formulario estén completos y que
+     * los valores numéricos sean correctos.
+     *
+     * @return true si los datos son válidos, false en caso contrario
+     */
     private boolean validarFormulario() {
         if (txt_codigo.getText().trim().isEmpty() || txt_nombre.getText().trim().isEmpty()
                 || txt_stock.getText().trim().isEmpty() || txt_stock_minimo.getText().trim().isEmpty()) {
@@ -325,6 +357,9 @@ public class GuiInventarioPiezas extends javax.swing.JInternalFrame {
         return p;
     }
 
+    /**
+     * Evento del botón "Guardar". Registra una nueva pieza en el inventario.
+     */
     private void bt_guardarActionPerformed(java.awt.event.ActionEvent evt) {
         if (!validarFormulario()) {
             return;
@@ -341,6 +376,9 @@ public class GuiInventarioPiezas extends javax.swing.JInternalFrame {
         }
     }
 
+    /**
+     * Evento del botón "Editar". Actualiza los datos de la pieza seleccionada.
+     */
     private void bt_editarActionPerformed(java.awt.event.ActionEvent evt) {
         if (txt_id.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Seleccione una pieza de la tabla.");
@@ -361,6 +399,10 @@ public class GuiInventarioPiezas extends javax.swing.JInternalFrame {
         }
     }
 
+    /**
+     * Evento del botón "Eliminar". Elimina la pieza seleccionada previa
+     * confirmación.
+     */
     private void bt_eliminarActionPerformed(java.awt.event.ActionEvent evt) {
         if (txt_id.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Seleccione una pieza de la tabla.");
@@ -374,10 +416,18 @@ public class GuiInventarioPiezas extends javax.swing.JInternalFrame {
         }
     }
 
+    /**
+     * Evento del botón "Cancelar". Limpia el formulario y vuelve al modo
+     * "nuevo".
+     */
     private void bt_cancelarActionPerformed(java.awt.event.ActionEvent evt) {
         cambiarAModoNuevo();
     }
 
+    /**
+     * Evento de clic en la tabla de piezas. Carga los datos de la pieza
+     * seleccionada en el formulario y cambia a modo "edición".
+     */
     private void tbl_piezasMouseClicked(java.awt.event.MouseEvent evt) {
         int fila = tbl_piezas.getSelectedRow();
         if (fila != -1) {
@@ -398,6 +448,10 @@ public class GuiInventarioPiezas extends javax.swing.JInternalFrame {
         }
     }
 
+    /**
+     * Evento del botón "Registrar movimiento". Registra una entrada, salida o
+     * ajuste de stock para la pieza seleccionada.
+     */
     private void bt_registrar_movimientoActionPerformed(java.awt.event.ActionEvent evt) {
         if (idPiezaSeleccionada == 0) {
             JOptionPane.showMessageDialog(this, "Seleccione una pieza de la tabla.");

@@ -12,13 +12,16 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
- *
- * @author danie
+ * Ventana interna para el registro y gestión de personal. Permite registrar,
+ * editar y eliminar usuarios con rol "personal", validando el formato del RUT y
+ * la coincidencia de las claves.
  */
 public class GuiRegistrarPersonal extends javax.swing.JInternalFrame {
 
     /**
-     * Creates new form GuiRegistrarPersonal
+     * Constructor. Inicializa la interfaz gráfica, oculta el campo ID, carga la
+     * tabla de personal, establece el modo "nuevo", centra la ventana y ajusta
+     * su tamaño.
      */
     public GuiRegistrarPersonal() {
         initComponents();
@@ -233,6 +236,9 @@ public class GuiRegistrarPersonal extends javax.swing.JInternalFrame {
         pack();
     }
 
+    /**
+     * Carga la tabla con todo el personal registrado (ID, RUT, cargo).
+     */
     public void cargarTabla() {
         String col[] = {"ID", "RUT", "Cargo"};
         DefaultTableModel tableModel = new DefaultTableModel(col, 0);
@@ -248,6 +254,10 @@ public class GuiRegistrarPersonal extends javax.swing.JInternalFrame {
         tbl_personal.setModel(tableModel);
     }
 
+    /**
+     * Cambia la interfaz a modo "edición": habilita Cancelar, Eliminar y
+     * Editar, deshabilita Guardar.
+     */
     public void cambiarAModoEdicion() {
         this.bt_cancelar.setEnabled(true);
         this.bt_eliminar.setEnabled(true);
@@ -255,6 +265,10 @@ public class GuiRegistrarPersonal extends javax.swing.JInternalFrame {
         this.bt_guardar.setEnabled(false);
     }
 
+    /**
+     * Cambia la interfaz a modo "nuevo": deshabilita Cancelar, Eliminar y
+     * Editar, habilita Guardar y limpia el formulario.
+     */
     public void cambiarAModoNuevo() {
         this.bt_cancelar.setEnabled(false);
         this.bt_eliminar.setEnabled(false);
@@ -263,6 +277,10 @@ public class GuiRegistrarPersonal extends javax.swing.JInternalFrame {
         limpiarFormulario();
     }
 
+    /**
+     * Limpia todos los campos del formulario y deselecciona la fila de la
+     * tabla.
+     */
     public void limpiarFormulario() {
         this.txt_id.setText("");
         this.txt_rut.setText("");
@@ -307,6 +325,10 @@ public class GuiRegistrarPersonal extends javax.swing.JInternalFrame {
         return usuario;
     }
 
+    /**
+     * Evento del botón "Guardar". Registra un nuevo personal después de validar
+     * el RUT, la clave y que no exista previamente.
+     */
     private void bt_guardarActionPerformed(java.awt.event.ActionEvent evt) {
         if (!validarFormulario()) {
             return;
@@ -325,6 +347,10 @@ public class GuiRegistrarPersonal extends javax.swing.JInternalFrame {
         }
     }
 
+    /**
+     * Evento de clic en la tabla de personal. Carga los datos del usuario
+     * seleccionado en el formulario y cambia a modo edición.
+     */
     private void tbl_personalMouseClicked(java.awt.event.MouseEvent evt) {
         int selectedRow = this.tbl_personal.getSelectedRow();
         if (selectedRow != -1) {
@@ -343,6 +369,9 @@ public class GuiRegistrarPersonal extends javax.swing.JInternalFrame {
         }
     }
 
+    /**
+     * Evento del botón "Editar". Actualiza los datos del personal seleccionado.
+     */
     private void bt_editarActionPerformed(java.awt.event.ActionEvent evt) {
         if (txt_id.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Seleccione un usuario de la tabla.");
@@ -365,6 +394,10 @@ public class GuiRegistrarPersonal extends javax.swing.JInternalFrame {
         }
     }
 
+    /**
+     * Evento del botón "Eliminar". Elimina el personal seleccionado previa
+     * confirmación.
+     */
     private void bt_eliminarActionPerformed(java.awt.event.ActionEvent evt) {
         if (txt_id.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Seleccione un usuario de la tabla.");
@@ -382,6 +415,10 @@ public class GuiRegistrarPersonal extends javax.swing.JInternalFrame {
         }
     }
 
+    /**
+     * Evento del botón "Cancelar". Limpia el formulario y vuelve al modo
+     * "nuevo".
+     */
     private void bt_cancelarActionPerformed(java.awt.event.ActionEvent evt) {
         cambiarAModoNuevo();
     }

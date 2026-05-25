@@ -18,15 +18,17 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
- *
- * @author danie
+ * Ventana interna para el mantenimiento de equipos de oficina. Permite
+ * registrar mantenimientos (preventivo/correctivo) a equipos existentes, con
+ * opción de descontar piezas del inventario.
  */
 public class GuiMantenimientoEquipos extends javax.swing.JInternalFrame {
 
     private int idEquipoSeleccionado = 0;
 
     /**
-     * Creates new form GuiMantenimientoEquipos
+     * Constructor. Inicializa la interfaz gráfica, centra la ventana, carga la
+     * tabla de equipos y el combo de piezas disponibles.
      */
     public GuiMantenimientoEquipos() {
         initComponents();
@@ -275,6 +277,10 @@ public class GuiMantenimientoEquipos extends javax.swing.JInternalFrame {
         pack();
     }
 
+    /**
+     * Carga la tabla con todos los equipos registrados en la base de datos.
+     * Muestra ID, tipo, código, marca, ubicación y estado.
+     */
     public void cargarTabla() {
         String col[] = {"ID", "Tipo", "Codigo", "Marca", "Ubicacion", "Estado"};
         DefaultTableModel tableModel = new DefaultTableModel(col, 0);
@@ -307,6 +313,10 @@ public class GuiMantenimientoEquipos extends javax.swing.JInternalFrame {
         }
     }
 
+    /**
+     * Limpia todos los campos del formulario de mantenimiento, deshabilita los
+     * campos de pieza y resetea el ID seleccionado.
+     */
     public void limpiarFormulario() {
         this.idEquipoSeleccionado = 0;
         this.txt_id.setText("");
@@ -338,6 +348,11 @@ public class GuiMantenimientoEquipos extends javax.swing.JInternalFrame {
         }
     }
 
+    /**
+     * Evento del botón "Guardar". Valida que se haya seleccionado un equipo y
+     * se hayan completado los datos obligatorios. Registra el mantenimiento y
+     * opcionalmente descuenta una pieza del inventario.
+     */
     private void bt_guardarActionPerformed(java.awt.event.ActionEvent evt) {
         if (tbl_equipos.getRowCount() == 0) {
             JOptionPane.showMessageDialog(this, "No hay equipos registrados. Debe registrar el equipo primero.");
@@ -411,6 +426,10 @@ public class GuiMantenimientoEquipos extends javax.swing.JInternalFrame {
         }
     }
 
+    /**
+     * Evento del checkbox "Usar pieza de inventario". Habilita o deshabilita
+     * los campos de selección de pieza y cantidad.
+     */
     private void chk_usar_piezaActionPerformed(java.awt.event.ActionEvent evt) {
         boolean usarPieza = chk_usar_pieza.isSelected();
         cmb_pieza.setEnabled(usarPieza);
@@ -420,10 +439,16 @@ public class GuiMantenimientoEquipos extends javax.swing.JInternalFrame {
         }
     }
 
+    /**
+     * Evento del botón "Cancelar". Limpia todo el formulario.
+     */
     private void bt_cancelarActionPerformed(java.awt.event.ActionEvent evt) {
         limpiarFormulario();
     }
-
+    /**
+     * Añadido de los Dao para utilizarse en la clase
+     */
+    
     EquipoDao equipoDao = new EquipoDao();
     MantenimientoEquipoDao mantenimientoEquipoDao = new MantenimientoEquipoDao();
     PiezaDao piezaDao = new PiezaDao();

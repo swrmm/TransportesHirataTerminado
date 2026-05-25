@@ -12,13 +12,16 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
- *
- * @author danie
+ * Ventana interna para el registro y gestión de equipos de oficina. Permite
+ * registrar, editar y eliminar equipos (Computador, Impresora, Teléfono), con
+ * generación automática de código según el tipo seleccionado.
  */
 public class GuiRegistrarEquipo extends javax.swing.JInternalFrame {
 
     /**
-     * Creates new form GuiRegistrarEquipo
+     * Constructor. Inicializa la interfaz gráfica, oculta el campo ID, carga la
+     * tabla de equipos, establece el modo "nuevo", centra la ventana y ajusta
+     * su tamaño.
      */
     public GuiRegistrarEquipo() {
         initComponents();
@@ -254,6 +257,9 @@ public class GuiRegistrarEquipo extends javax.swing.JInternalFrame {
         pack();
     }
 
+    /**
+     * Carga la tabla con todos los equipos registrados.
+     */
     public void cargarTabla() {
         String col[] = {"ID", "Tipo", "Codigo", "Marca", "Ubicacion", "Estado"};
         DefaultTableModel tableModel = new DefaultTableModel(col, 0);
@@ -272,6 +278,10 @@ public class GuiRegistrarEquipo extends javax.swing.JInternalFrame {
         tbl_equipo.setModel(tableModel);
     }
 
+    /**
+     * Cambia la interfaz a modo "edición": habilita Cancelar, Eliminar y
+     * Editar, deshabilita Guardar.
+     */
     public void cambiarAModoEdicion() {
         this.bt_cancelar.setEnabled(true);
         this.bt_eliminar.setEnabled(true);
@@ -279,6 +289,10 @@ public class GuiRegistrarEquipo extends javax.swing.JInternalFrame {
         this.bt_guardar.setEnabled(false);
     }
 
+    /**
+     * Cambia la interfaz a modo "nuevo": deshabilita Cancelar, Eliminar y
+     * Editar, habilita Guardar y limpia el formulario.
+     */
     public void cambiarAModoNuevo() {
         this.bt_cancelar.setEnabled(false);
         this.bt_eliminar.setEnabled(false);
@@ -287,6 +301,10 @@ public class GuiRegistrarEquipo extends javax.swing.JInternalFrame {
         limpiarFormulario();
     }
 
+    /**
+     * Limpia todos los campos del formulario y deselecciona la fila de la
+     * tabla.
+     */
     public void limpiarFormulario() {
         this.txt_id.setText("");
         this.cmb_tipo.setSelectedIndex(0);
@@ -336,6 +354,10 @@ public class GuiRegistrarEquipo extends javax.swing.JInternalFrame {
         return "TEL";
     }
 
+    /**
+     * Actualiza el código del equipo automáticamente según el tipo seleccionado
+     * y el siguiente número disponible (formato: PREFIJO-001).
+     */
     private void actualizarCodigoAutomatico() {
         if (!txt_id.getText().trim().isEmpty()) {
             return;
@@ -364,6 +386,10 @@ public class GuiRegistrarEquipo extends javax.swing.JInternalFrame {
         }
     }
 
+    /**
+     * Evento del botón "Guardar". Registra un nuevo equipo después de validar
+     * que el código no exista.
+     */
     private void bt_guardarActionPerformed(java.awt.event.ActionEvent evt) {
         actualizarCodigoAutomatico();
         if (!validarFormulario()) {
@@ -383,6 +409,10 @@ public class GuiRegistrarEquipo extends javax.swing.JInternalFrame {
         }
     }
 
+    /**
+     * Evento de clic en la tabla de equipos. Carga los datos del equipo
+     * seleccionado en el formulario y cambia a modo edición.
+     */
     private void tbl_equipoMouseClicked(java.awt.event.MouseEvent evt) {
         int selectedRow = this.tbl_equipo.getSelectedRow();
         if (selectedRow != -1) {
@@ -396,6 +426,9 @@ public class GuiRegistrarEquipo extends javax.swing.JInternalFrame {
         }
     }
 
+    /**
+     * Evento del botón "Editar". Actualiza los datos del equipo seleccionado.
+     */
     private void bt_editarActionPerformed(java.awt.event.ActionEvent evt) {
         if (txt_id.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Seleccione un equipo de la tabla.");
@@ -418,6 +451,10 @@ public class GuiRegistrarEquipo extends javax.swing.JInternalFrame {
         }
     }
 
+    /**
+     * Evento del botón "Eliminar". Elimina el equipo seleccionado previa
+     * confirmación.
+     */
     private void bt_eliminarActionPerformed(java.awt.event.ActionEvent evt) {
         if (txt_id.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Seleccione un equipo de la tabla.");
@@ -435,10 +472,18 @@ public class GuiRegistrarEquipo extends javax.swing.JInternalFrame {
         }
     }
 
+    /**
+     * Evento del botón "Cancelar". Limpia el formulario y vuelve al modo
+     * "nuevo".
+     */
     private void bt_cancelarActionPerformed(java.awt.event.ActionEvent evt) {
         cambiarAModoNuevo();
     }
 
+    /**
+     * Evento del combo de tipo de equipo. Actualiza el código automáticamente
+     * al cambiar el tipo si se está en modo nuevo.
+     */
     private void cmb_tipoActionPerformed(java.awt.event.ActionEvent evt) {
         if (txt_id != null && txt_codigo != null) {
             if (txt_id.getText().trim().isEmpty()) {

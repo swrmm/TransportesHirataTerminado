@@ -8,13 +8,17 @@ import com.mycompany.transporteshirata.GUI.GuiLoginGeneral;
 import javax.swing.JFrame;
 
 /**
- *
- * @author danie
+ * Ventana principal de la aplicación Transportes Hirata. Muestra un escritorio
+ * con menús según el rol del usuario (administrador, conductor o personal).
+ * Permite acceder a todos los módulos del sistema: registro, mantenimiento,
+ * inventario, etc.
  */
 public class Principal extends javax.swing.JFrame {
 
     /**
-     * Creates new form Principal
+     * Constructor. Maximiza la ventana, establece el título y restringe las
+     * opciones del menú según el cargo del usuario logueado (conductor o
+     * personal).
      */
     public Principal() {
         initComponents();
@@ -226,11 +230,20 @@ public class Principal extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    /**
+     * Restringe la interfaz para usuarios con rol "conductor". Deshabilita los
+     * menús de Registro y Mantenimiento.
+     */
     private void GuiConductor() {
         bt_menu1.setEnabled(false);
         bt_menu2.setEnabled(false);
     }
-    
+
+    /**
+     * Restringe la interfaz para usuarios con rol "personal". Deshabilita
+     * partes del menú de Registro, Mantenimiento y actualización de
+     * kilometraje.
+     */
     private void GuiPersonal() {
         bt_menu1.setEnabled(false);
         bt_mantenimiento.setEnabled(false);
@@ -239,6 +252,10 @@ public class Principal extends javax.swing.JFrame {
         jMenuItemHistorialEquipos.setVisible(false);
         bt_menu3.setEnabled(false);
     }
+
+    /**
+     * Abre la ventana interna para registrar un camión.
+     */
     private void openMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openMenuItemActionPerformed
         GuiRegistrarCamion v = new GuiRegistrarCamion();
         desktopPane.add(v);

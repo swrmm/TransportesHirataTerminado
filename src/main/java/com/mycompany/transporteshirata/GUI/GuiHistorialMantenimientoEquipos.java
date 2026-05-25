@@ -11,13 +11,15 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
- *
- * @author danie
+ * Ventana interna para visualizar el historial de mantenimientos de equipos.
+ * Permite listar todos los mantenimientos registrados, buscar por código de
+ * equipo y ver los detalles completos de cada mantenimiento.
  */
 public class GuiHistorialMantenimientoEquipos extends javax.swing.JInternalFrame {
 
     /**
-     * Creates new form GuiHistorialMantenimientoEquipos
+     * Constructor. Inicializa la interfaz gráfica, establece el título y carga
+     * la tabla con todos los mantenimientos registrados.
      */
     public GuiHistorialMantenimientoEquipos() {
         initComponents();
@@ -244,6 +246,14 @@ public class GuiHistorialMantenimientoEquipos extends javax.swing.JInternalFrame
         pack();
     }
 
+    /**
+     * Carga la tabla de historial con los mantenimientos de equipos. Si se
+     * proporciona un filtro, muestra solo los equipos cuyo código coincida
+     * parcialmente (sin distinción de mayúsculas/minúsculas).
+     *
+     * @param filtroCodigo código de equipo para filtrar (puede ser vacío o
+     * null)
+     */
     public void cargarTabla(String filtroCodigo) {
         String col[] = {"ID", "Fecha", "Tipo Mant.", "Codigo", "Equipo", "Tecnico", "Estado"};
         DefaultTableModel tableModel = new DefaultTableModel(col, 0);
@@ -273,6 +283,9 @@ public class GuiHistorialMantenimientoEquipos extends javax.swing.JInternalFrame
         }
     }
 
+    /**
+     * Limpia todos los campos de detalle del mantenimiento seleccionado.
+     */
     public void limpiarCajas() {
         txt_id.setText("");
         txt_codigo.setText("");
@@ -285,6 +298,10 @@ public class GuiHistorialMantenimientoEquipos extends javax.swing.JInternalFrame
         txt_observaciones.setText("");
     }
 
+    /**
+     * Evento de clic en la tabla de historial. Muestra los detalles completos
+     * del mantenimiento seleccionado en el panel de la derecha.
+     */
     private void tbl_historialMouseClicked(java.awt.event.MouseEvent evt) {
         int fila = tbl_historial.getSelectedRow();
         if (fila != -1) {
@@ -307,17 +324,28 @@ public class GuiHistorialMantenimientoEquipos extends javax.swing.JInternalFrame
         }
     }
 
+    /**
+     * Evento del botón "Buscar". Filtra la tabla por el código ingresado.
+     */
     private void bt_buscarActionPerformed(java.awt.event.ActionEvent evt) {
         cargarTabla(txt_buscar.getText());
         limpiarCajas();
     }
 
+    /**
+     * Evento del botón "Ver Todos". Limpia el filtro y muestra todos los
+     * mantenimientos.
+     */
     private void bt_refrescarActionPerformed(java.awt.event.ActionEvent evt) {
         txt_buscar.setText("");
         cargarTabla("");
         limpiarCajas();
     }
 
+    /**
+     * Evento del botón "Cancelar". Limpia los campos de detalle y deselecciona
+     * la fila actual de la tabla.
+     */
     private void bt_cancelarActionPerformed(java.awt.event.ActionEvent evt) {
         limpiarCajas();
         tbl_historial.clearSelection();

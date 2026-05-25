@@ -11,8 +11,8 @@ import java.sql.Connection;
 import javax.swing.JOptionPane;
 
 /**
- *
- * @author danie
+ * Ventana de login general para Transportes Hirata. Valida rut y contraseña, e
+ * inicia la sesión según el cargo del usuario.
  */
 public class GuiLoginGeneral extends javax.swing.JFrame {
 
@@ -20,7 +20,8 @@ public class GuiLoginGeneral extends javax.swing.JFrame {
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(GuiLoginGeneral.class.getName());
 
     /**
-     * Creates new form GuiLoginGeneral
+     * Constructor. Inicializa la ventana de login, la centra, la hace no
+     * redimensionable y le asigna el título correspondiente.
      */
     public GuiLoginGeneral() {
         initComponents();
@@ -142,7 +143,14 @@ public class GuiLoginGeneral extends javax.swing.JFrame {
     private void txt_rutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_rutActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_rutActionPerformed
-
+    /**
+     * Evento del botón "INGRESAR". Obtiene rut y clave del usuario, los valida
+     * contra la base de datos mediante UsuarioDao. Si es correcto, muestra
+     * mensaje de bienvenida, guarda el cargo y abre la ventana Principal. Si es
+     * incorrecto, muestra mensaje de error.
+     *
+     * @param evt evento de acción del botón
+     */
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         String rut = txt_rut.getText();
         rut = rut.replace(" ", "");

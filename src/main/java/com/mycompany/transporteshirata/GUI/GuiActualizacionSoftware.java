@@ -13,11 +13,22 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
+/**
+ * Ventana interna para la gestión de actualizaciones de software en equipos de
+ * oficina. Permite administrar el catálogo de software (registrar, editar,
+ * eliminar), y registrar actualizaciones de software en equipos específicos,
+ * manteniendo un historial de versiones.
+ */
 public class GuiActualizacionSoftware extends javax.swing.JInternalFrame {
 
     private int idEquipoSeleccionado = 0;
     private int idSoftwareSeleccionado = 0;
 
+    /**
+     * Constructor. Inicializa la interfaz gráfica, centra la ventana, establece
+     * la fecha actual, carga las tablas de equipos, software e historial, y
+     * deja el formulario de software en modo "nuevo".
+     */
     public GuiActualizacionSoftware() {
         initComponents();
         this.setTitle("     Actualizacion de Software     ");
@@ -253,6 +264,9 @@ public class GuiActualizacionSoftware extends javax.swing.JInternalFrame {
         pack();
     }
 
+    /**
+     * Carga la tabla con todos los equipos registrados.
+     */
     private void cargarTablaEquipos() {
         String col[] = {"ID", "Codigo", "Tipo", "Marca", "Estado"};
         DefaultTableModel tableModel = new DefaultTableModel(col, 0);
@@ -262,6 +276,9 @@ public class GuiActualizacionSoftware extends javax.swing.JInternalFrame {
         tbl_equipos.setModel(tableModel);
     }
 
+    /**
+     * Carga la tabla con todo el catálogo de software registrado.
+     */
     private void cargarTablaSoftware() {
         String col[] = {"ID", "Nombre", "Version", "Proveedor", "Estado"};
         DefaultTableModel tableModel = new DefaultTableModel(col, 0);
@@ -271,6 +288,9 @@ public class GuiActualizacionSoftware extends javax.swing.JInternalFrame {
         tbl_software.setModel(tableModel);
     }
 
+    /**
+     * Carga la tabla con el historial de todas las actualizaciones registradas.
+     */
     private void cargarTablaHistorial() {
         String col[] = {"Fecha", "Equipo", "Software", "Anterior", "Nueva", "Tecnico", "Estado"};
         DefaultTableModel tableModel = new DefaultTableModel(col, 0);
@@ -280,6 +300,10 @@ public class GuiActualizacionSoftware extends javax.swing.JInternalFrame {
         tbl_historial.setModel(tableModel);
     }
 
+    /**
+     * Cambia el panel de software a modo "nuevo": habilita Guardar, deshabilita
+     * Editar/Eliminar y limpia el formulario de software.
+     */
     private void cambiarSoftwareAModoNuevo() {
         bt_guardar_software.setEnabled(true);
         bt_editar_software.setEnabled(false);
@@ -287,12 +311,19 @@ public class GuiActualizacionSoftware extends javax.swing.JInternalFrame {
         limpiarSoftware();
     }
 
+    /**
+     * Cambia el panel de software a modo "edición": deshabilita Guardar,
+     * habilita Editar y Eliminar.
+     */
     private void cambiarSoftwareAModoEdicion() {
         bt_guardar_software.setEnabled(false);
         bt_editar_software.setEnabled(true);
         bt_eliminar_software.setEnabled(true);
     }
 
+    /**
+     * Limpia todos los campos del formulario de software.
+     */
     private void limpiarSoftware() {
         idSoftwareSeleccionado = 0;
         txt_id_software.setText("");
@@ -304,6 +335,10 @@ public class GuiActualizacionSoftware extends javax.swing.JInternalFrame {
         tbl_software.clearSelection();
     }
 
+    /**
+     * Limpia todos los campos del formulario de actualización y deselecciona
+     * equipo y software.
+     */
     private void limpiarActualizacion() {
         idEquipoSeleccionado = 0;
         idSoftwareSeleccionado = 0;
@@ -393,6 +428,10 @@ public class GuiActualizacionSoftware extends javax.swing.JInternalFrame {
         cambiarSoftwareAModoNuevo();
     }
 
+    /**
+     * Evento de clic en la tabla de equipos. Carga el equipo seleccionado y
+     * actualiza la versión instalada del software en ese equipo.
+     */
     private void tbl_equiposMouseClicked(java.awt.event.MouseEvent evt) {
         int fila = tbl_equipos.getSelectedRow();
         if (fila != -1) {
@@ -402,6 +441,10 @@ public class GuiActualizacionSoftware extends javax.swing.JInternalFrame {
         }
     }
 
+    /**
+     * Evento de clic en la tabla de software. Carga los datos del software
+     * seleccionado en el formulario y cambia a modo edición.
+     */
     private void tbl_softwareMouseClicked(java.awt.event.MouseEvent evt) {
         int fila = tbl_software.getSelectedRow();
         if (fila != -1) {
@@ -426,6 +469,9 @@ public class GuiActualizacionSoftware extends javax.swing.JInternalFrame {
         }
     }
 
+    /**
+     * Carga la versión actual del software instalada en el equipo seleccionado.
+     */
     private void cargarVersionInstalada() {
         if (idEquipoSeleccionado > 0 && idSoftwareSeleccionado > 0) {
             String versionInstalada = actualizacionDao.obtenerVersionInstalada(idEquipoSeleccionado, idSoftwareSeleccionado);
@@ -436,6 +482,10 @@ public class GuiActualizacionSoftware extends javax.swing.JInternalFrame {
         }
     }
 
+    /**
+     * Evento del botón "Registrar actualización". Registra una nueva
+     * actualización de software para el equipo y software seleccionados.
+     */
     private void bt_registrar_actualizacionActionPerformed(java.awt.event.ActionEvent evt) {
         if (idEquipoSeleccionado == 0) {
             JOptionPane.showMessageDialog(this, "Seleccione un equipo.");
