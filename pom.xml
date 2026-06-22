@@ -4,7 +4,12 @@
     <groupId>com.mycompany</groupId>
     <artifactId>TransportesHirata</artifactId>
     <version>1.0-SNAPSHOT</version>
+<<<<<<< HEAD
     <packaging>jar</packaging>    <dependencies>
+=======
+    <packaging>jar</packaging>
+    <dependencies>
+>>>>>>> 5fd7d53bd2d4321ed030986163cb7309bcd8a2be
         <dependency>
             <groupId>com.mysql</groupId>
             <artifactId>mysql-connector-j</artifactId>

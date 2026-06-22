@@ -11,17 +11,30 @@ import java.sql.Connection;
 import javax.swing.JOptionPane;
 
 /**
+<<<<<<< HEAD
  *
  * @author danie
+=======
+ * Ventana de login general para Transportes Hirata. Valida rut y contraseña, e
+ * inicia la sesión según el cargo del usuario.
+>>>>>>> 5fd7d53bd2d4321ed030986163cb7309bcd8a2be
  */
 public class GuiLoginGeneral extends javax.swing.JFrame {
 
     public static String cargo_global = "";
+<<<<<<< HEAD
     public static String rut_global = "";
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(GuiLoginGeneral.class.getName());
 
     /**
      * Creates new form GuiLoginGeneral
+=======
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(GuiLoginGeneral.class.getName());
+
+    /**
+     * Constructor. Inicializa la ventana de login, la centra, la hace no
+     * redimensionable y le asigna el título correspondiente.
+>>>>>>> 5fd7d53bd2d4321ed030986163cb7309bcd8a2be
      */
     public GuiLoginGeneral() {
         initComponents();
@@ -143,16 +156,32 @@ public class GuiLoginGeneral extends javax.swing.JFrame {
     private void txt_rutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_rutActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_rutActionPerformed
+<<<<<<< HEAD
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         String rut = txt_rut.getText().replace(" ", ""); // Limpia espacios
         String clave = new String(txt_clave.getPassword());
         
+=======
+    /**
+     * Evento del botón "INGRESAR". Obtiene rut y clave del usuario, los valida
+     * contra la base de datos mediante UsuarioDao. Si es correcto, muestra
+     * mensaje de bienvenida, guarda el cargo y abre la ventana Principal. Si es
+     * incorrecto, muestra mensaje de error.
+     *
+     * @param evt evento de acción del botón
+     */
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        String rut = txt_rut.getText();
+        rut = rut.replace(" ", "");
+        String clave = new String(txt_clave.getPassword());
+>>>>>>> 5fd7d53bd2d4321ed030986163cb7309bcd8a2be
         UsuarioDao ud = new UsuarioDao();
         Usuario usuario = ud.validarUsuario(rut, clave);
 
         if (usuario != null) {
             String cargo = usuario.getCargo();
+<<<<<<< HEAD
             this.setVisible(false);
             cargo_global = cargo;
             rut_global = rut;
@@ -168,16 +197,47 @@ public class GuiLoginGeneral extends javax.swing.JFrame {
             } else {
                
                 Principal p = new Principal(cargo);
+=======
+
+            if (cargo.equals("administrador")) {
+                System.out.println("Bienvenido Administrador");
+                cargo_global = "administrador";
+                JOptionPane.showMessageDialog(null, "Bienvenido Administrador");
+                this.setVisible(false);
+                Principal p = new Principal();
+                p.setVisible(true);
+
+            } else if (cargo.equals("conductor")) {
+                System.out.println("Bienvenido Conductor");
+                cargo_global = "conductor";
+                JOptionPane.showMessageDialog(null, "Bienvenido Conductor");
+                this.setVisible(false);
+                Principal p = new Principal();
+                p.setVisible(true);
+            } else if (cargo.equals("personal")) {
+                System.out.println("Bienvenido Personal");
+                cargo_global = "personal";
+                JOptionPane.showMessageDialog(null, "Bienvenido Personal");
+                this.setVisible(false);
+                Principal p = new Principal();
+>>>>>>> 5fd7d53bd2d4321ed030986163cb7309bcd8a2be
                 p.setVisible(true);
             }
 
         } else {
+<<<<<<< HEAD
             JOptionPane.showMessageDialog(null, "RUT o contraseña incorrectos", "Error de Autenticación", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     
     
+=======
+            JOptionPane.showMessageDialog(null, "RUT o contraseña incorrectos");
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+>>>>>>> 5fd7d53bd2d4321ed030986163cb7309bcd8a2be
     /**
      * @param args the command line arguments
      */
@@ -214,5 +274,11 @@ public class GuiLoginGeneral extends javax.swing.JFrame {
     private javax.swing.JTextField txt_rut;
     // End of variables declaration//GEN-END:variables
 
+<<<<<<< HEAD
    
+=======
+    private Usuario validarUsuario(String rut, String clave) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+>>>>>>> 5fd7d53bd2d4321ed030986163cb7309bcd8a2be
 }

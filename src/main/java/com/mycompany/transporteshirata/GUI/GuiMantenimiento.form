@@ -270,9 +270,12 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txt_descripcion">
+<<<<<<< HEAD
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txt_descripcionActionPerformed"/>
           </Events>
+=======
+>>>>>>> 5fd7d53bd2d4321ed030986163cb7309bcd8a2be
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel6">
           <Properties>

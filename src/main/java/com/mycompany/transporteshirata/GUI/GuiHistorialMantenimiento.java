@@ -139,8 +139,11 @@ public class GuiHistorialMantenimiento extends javax.swing.JInternalFrame {
 
         jLabel6.setText("Descripción");
 
+<<<<<<< HEAD
         txt_descripcion.addActionListener(this::txt_descripcionActionPerformed);
 
+=======
+>>>>>>> 5fd7d53bd2d4321ed030986163cb7309bcd8a2be
         jLabel7.setText("Tipo");
 
         cmb_tipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Preventivo", "Correctivo", " " }));
@@ -369,10 +372,13 @@ public class GuiHistorialMantenimiento extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_descActionPerformed
 
+<<<<<<< HEAD
     private void txt_descripcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_descripcionActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_descripcionActionPerformed
 
+=======
+>>>>>>> 5fd7d53bd2d4321ed030986163cb7309bcd8a2be
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bt_buscar;

@@ -1,6 +1,7 @@
 com\mycompany\transporteshirata\Datos\MantenimientoDao.class
 com\mycompany\transporteshirata\Datos\ConductoDao.class
 com\mycompany\transporteshirata\GUI\GuiRegistrarCamion$5.class
+<<<<<<< HEAD
 com\mycompany\transporteshirata\GUI\GuiEquipoOficina.class
 com\mycompany\transporteshirata\GUI\Principal.class
 com\mycompany\transporteshirata\GUI\GuiMantenimiento$4.class
@@ -17,10 +18,25 @@ com\mycompany\transporteshirata\GUI\Principal$4.class
 com\mycompany\transporteshirata\Logica\ActualizacionSoftware.class
 com\mycompany\transporteshirata\GUI\GuiMantenimientoEquipo.class
 com\mycompany\transporteshirata\Logica\MantenimientoEquipo.class
+=======
+com\mycompany\transporteshirata\GUI\Principal.class
+com\mycompany\transporteshirata\Logica\MovimientoInventario.class
+com\mycompany\transporteshirata\GUI\GuiMantenimiento$4.class
+com\mycompany\transporteshirata\GUI\Principal$1.class
+com\mycompany\transporteshirata\GUI\GuiMantenimiento.class
+com\mycompany\transporteshirata\Datos\PiezaDao.class
+com\mycompany\transporteshirata\GUI\GuiKilometraje$1.class
+com\mycompany\transporteshirata\GUI\Principal$4.class
+com\mycompany\transporteshirata\Logica\ActualizacionSoftware.class
+com\mycompany\transporteshirata\Datos\SoftwareDao.class
+com\mycompany\transporteshirata\GUI\GuiRegistrarConductor$5.class
+com\mycompany\transporteshirata\Datos\DatabaseConnection.class
+>>>>>>> 5fd7d53bd2d4321ed030986163cb7309bcd8a2be
 com\mycompany\transporteshirata\GUI\GuiInventarioPiezas$1.class
 com\mycompany\transporteshirata\GUI\Principal$7.class
 com\mycompany\transporteshirata\GUI\GuiActualizacionSoftware$1.class
 com\mycompany\transporteshirata\GUI\GuiMantenimiento$3.class
+<<<<<<< HEAD
 com\mycompany\transporteshirata\GUI\GuiGestionUsuarios.class
 com\mycompany\transporteshirata\GUI\GuiMantenimientoEquipo$1.class
 com\mycompany\transporteshirata\GUI\Principal$5.class
@@ -30,11 +46,20 @@ com\mycompany\transporteshirata\Datos\UsuarioDao.class
 com\mycompany\transporteshirata\GUI\Principal$8.class
 com\mycompany\transporteshirata\Logica\EquipoOficina.class
 com\mycompany\transporteshirata\GUI\GuiHistorialEquipos$2.class
+=======
+com\mycompany\transporteshirata\GUI\Principal$5.class
+com\mycompany\transporteshirata\GUI\GuiRegistrarCamion$2.class
+com\mycompany\transporteshirata\GUI\Principal$14.class
+com\mycompany\transporteshirata\GUI\GuiRegistrarConductor$3.class
+com\mycompany\transporteshirata\Datos\UsuarioDao.class
+com\mycompany\transporteshirata\GUI\Principal$8.class
+>>>>>>> 5fd7d53bd2d4321ed030986163cb7309bcd8a2be
 com\mycompany\transporteshirata\GUI\GuiInventarioPiezas.class
 com\mycompany\transporteshirata\GUI\GuiHistorialMantenimiento$1.class
 com\mycompany\transporteshirata\GUI\GuiRegistrarConductor.class
 com\mycompany\transporteshirata\GUI\GuiLoginGeneral$1.class
 com\mycompany\transporteshirata\Logica\Mantenimiento.class
+<<<<<<< HEAD
 com\mycompany\transporteshirata\GUI\GuiMonitoreoSensores.class
 com\mycompany\transporteshirata\Logica\Login.class
 com\mycompany\transporteshirata\Logica\Conductor.class
@@ -46,10 +71,26 @@ com\mycompany\transporteshirata\GUI\GuiHistorialEquipos$1.class
 com\mycompany\transporteshirata\GUI\GuiKilometraje.class
 com\mycompany\transporteshirata\GUI\Principal$2.class
 com\mycompany\transporteshirata\GUI\GuiLoginGeneral.class
+=======
+com\mycompany\transporteshirata\GUI\GuiRegistrarEquipo$6.class
+com\mycompany\transporteshirata\Logica\Login.class
+com\mycompany\transporteshirata\Logica\Conductor.class
+com\mycompany\transporteshirata\GUI\GuiRegistrarCamion.class
+com\mycompany\transporteshirata\GUI\GuiMantenimiento$2.class
+com\mycompany\transporteshirata\GUI\Principal$10.class
+com\mycompany\transporteshirata\GUI\Principal$6.class
+com\mycompany\transporteshirata\GUI\GuiMantenimientoEquipos$4.class
+com\mycompany\transporteshirata\GUI\Principal$9.class
+com\mycompany\transporteshirata\GUI\GuiKilometraje.class
+com\mycompany\transporteshirata\GUI\Principal$2.class
+com\mycompany\transporteshirata\GUI\GuiLoginGeneral.class
+com\mycompany\transporteshirata\Logica\Pieza.class
+>>>>>>> 5fd7d53bd2d4321ed030986163cb7309bcd8a2be
 com\mycompany\transporteshirata\GUI\GuiRegistrarConductor$2.class
 com\mycompany\transporteshirata\GUI\GuiRegistrarCamion$3.class
 com\mycompany\transporteshirata\GUI\GuiLoginGeneral$2.class
 com\mycompany\transporteshirata\GUI\GuiKilometraje$3.class
+<<<<<<< HEAD
 com\mycompany\transporteshirata\GUI\UiTheme.class
 com\mycompany\transporteshirata\Logica\Camion.class
 com\mycompany\transporteshirata\Datos\Conexion.class
@@ -71,4 +112,24 @@ com\mycompany\transporteshirata\Datos\LoginDao.class
 com\mycompany\transporteshirata\Datos\EquipoOficinaDao.class
 com\mycompany\transporteshirata\GUI\GuiActualizacionSoftware.class
 com\mycompany\transporteshirata\Logica\ReporteSensor.class
+=======
+com\mycompany\transporteshirata\Logica\Camion.class
+com\mycompany\transporteshirata\Datos\MovimientoInventarioDao.class
+com\mycompany\transporteshirata\Datos\Conexion.class
+com\mycompany\transporteshirata\GUI\GuiHistorialMantenimiento.class
+com\mycompany\transporteshirata\GUI\GuiRegistrarCamion$1.class
+com\mycompany\transporteshirata\GUI\Principal$13.class
+com\mycompany\transporteshirata\GUI\Principal$3.class
+com\mycompany\transporteshirata\Logica\Software.class
+com\mycompany\transporteshirata\Logica\Usuario.class
+com\mycompany\transporteshirata\GUI\GuiRegistrarConductor$4.class
+com\mycompany\transporteshirata\Datos\CamionDao.class
+com\mycompany\transporteshirata\GUI\GuiKilometraje$2.class
+com\mycompany\transporteshirata\GUI\GuiRegistrarCamion$4.class
+com\mycompany\transporteshirata\GUI\GuiActualizacionSoftware$2.class
+com\mycompany\transporteshirata\GUI\GuiMantenimiento$1.class
+com\mycompany\transporteshirata\GUI\GuiRegistrarConductor$1.class
+com\mycompany\transporteshirata\Datos\LoginDao.class
+com\mycompany\transporteshirata\GUI\GuiActualizacionSoftware.class
+>>>>>>> 5fd7d53bd2d4321ed030986163cb7309bcd8a2be
 com\mycompany\transporteshirata\Datos\ActualizacionSoftwareDao.class

@@ -9,7 +9,11 @@ public class Conexion {
 
     private static final String URL = "jdbc:mysql://localhost:3306/Transportes_Hirata_v2";
     private static final String USUARIO = "root";
+<<<<<<< HEAD
     private static final String CONTRASENA = "admin123";
+=======
+    private static final String CONTRASENA = "Stomas.2023";
+>>>>>>> 5fd7d53bd2d4321ed030986163cb7309bcd8a2be
 
     public static Connection getConexion() {
         try {

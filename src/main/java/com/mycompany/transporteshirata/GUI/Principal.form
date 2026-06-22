@@ -20,7 +20,11 @@
     </Component>
     <Menu class="javax.swing.JMenuBar" name="menuBar">
       <SubComponents>
+<<<<<<< HEAD
         <Menu class="javax.swing.JMenu" name="bt_conductor">
+=======
+        <Menu class="javax.swing.JMenu" name="bt_menu1">
+>>>>>>> 5fd7d53bd2d4321ed030986163cb7309bcd8a2be
           <Properties>
             <Property name="mnemonic" type="int" value="102"/>
             <Property name="text" type="java.lang.String" value="Registro"/>
@@ -53,21 +57,36 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="openMenuItem1ActionPerformed"/>
               </Events>
             </MenuItem>
+<<<<<<< HEAD
             <MenuItem class="javax.swing.JMenuItem" name="openMenuItem2">
+=======
+            <MenuItem class="javax.swing.JMenuItem" name="openMenuItem4">
+>>>>>>> 5fd7d53bd2d4321ed030986163cb7309bcd8a2be
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Segoe UI" size="18" style="3"/>
                 </Property>
                 <Property name="mnemonic" type="int" value="111"/>
+<<<<<<< HEAD
                 <Property name="text" type="java.lang.String" value="Volver"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="openMenuItem2ActionPerformed"/>
+=======
+                <Property name="text" type="java.lang.String" value="Registrar equipo"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="openMenuItem4ActionPerformed"/>
+>>>>>>> 5fd7d53bd2d4321ed030986163cb7309bcd8a2be
               </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
+<<<<<<< HEAD
         <Menu class="javax.swing.JMenu" name="bt_conductor1">
+=======
+        <Menu class="javax.swing.JMenu" name="bt_menu2">
+>>>>>>> 5fd7d53bd2d4321ed030986163cb7309bcd8a2be
           <Properties>
             <Property name="mnemonic" type="int" value="102"/>
             <Property name="text" type="java.lang.String" value="Mantenimiento"/>
@@ -82,12 +101,31 @@
                   <Font name="Segoe UI" size="18" style="3"/>
                 </Property>
                 <Property name="mnemonic" type="int" value="111"/>
+<<<<<<< HEAD
                 <Property name="text" type="java.lang.String" value="Hacer mantenimiento"/>
+=======
+                <Property name="text" type="java.lang.String" value="Hacer mantenimiento camion"/>
+>>>>>>> 5fd7d53bd2d4321ed030986163cb7309bcd8a2be
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bt_mantenimientoActionPerformed"/>
               </Events>
             </MenuItem>
+<<<<<<< HEAD
+=======
+            <MenuItem class="javax.swing.JMenuItem" name="bt_mantenimiento2">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="18" style="3"/>
+                </Property>
+                <Property name="mnemonic" type="int" value="111"/>
+                <Property name="text" type="java.lang.String" value="Hacer mantenimiento equipo"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bt_mantenimiento2ActionPerformed"/>
+              </Events>
+            </MenuItem>
+>>>>>>> 5fd7d53bd2d4321ed030986163cb7309bcd8a2be
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem1">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -99,16 +137,61 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem1ActionPerformed"/>
               </Events>
             </MenuItem>
+<<<<<<< HEAD
             <MenuItem class="javax.swing.JMenuItem" name="openMenuItem3">
+=======
+          </SubComponents>
+        </Menu>
+        <Menu class="javax.swing.JMenu" name="bt_menu3">
+          <Properties>
+            <Property name="mnemonic" type="int" value="102"/>
+            <Property name="text" type="java.lang.String" value="actualizar_kilometraje"/>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Sitka Text" size="24" style="1"/>
+            </Property>
+          </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="bt_mantenimiento1">
+>>>>>>> 5fd7d53bd2d4321ed030986163cb7309bcd8a2be
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Segoe UI" size="18" style="3"/>
                 </Property>
                 <Property name="mnemonic" type="int" value="111"/>
+<<<<<<< HEAD
                 <Property name="text" type="java.lang.String" value="Volver"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="openMenuItem3ActionPerformed"/>
+=======
+                <Property name="text" type="java.lang.String" value="actualizar kilometraje de camion"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bt_mantenimiento1ActionPerformed"/>
+              </Events>
+            </MenuItem>
+          </SubComponents>
+        </Menu>
+        <Menu class="javax.swing.JMenu" name="bt_menu4">
+          <Properties>
+            <Property name="mnemonic" type="int" value="102"/>
+            <Property name="text" type="java.lang.String" value="cerrar sesion"/>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Sitka Text" size="24" style="1"/>
+            </Property>
+          </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="openMenuItem5">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="18" style="3"/>
+                </Property>
+                <Property name="mnemonic" type="int" value="111"/>
+                <Property name="text" type="java.lang.String" value="cerrar sesion"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="openMenuItem5ActionPerformed"/>
+>>>>>>> 5fd7d53bd2d4321ed030986163cb7309bcd8a2be
               </Events>
             </MenuItem>
           </SubComponents>
@@ -139,7 +222,11 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
+<<<<<<< HEAD
           <Component id="desktopPane" pref="609" max="32767" attributes="0"/>
+=======
+          <Component id="desktopPane" pref="869" max="32767" attributes="0"/>
+>>>>>>> 5fd7d53bd2d4321ed030986163cb7309bcd8a2be
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">

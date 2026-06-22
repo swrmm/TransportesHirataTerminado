@@ -121,12 +121,15 @@ public class GuiMantenimiento extends javax.swing.JInternalFrame {
 
         jLabel5.setText("descripcion");
 
+<<<<<<< HEAD
         txt_descripcion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_descripcionActionPerformed(evt);
             }
         });
 
+=======
+>>>>>>> 5fd7d53bd2d4321ed030986163cb7309bcd8a2be
         jLabel6.setText("Kilometraje");
 
         txt_kilometraje.setEditable(false);
@@ -143,6 +146,14 @@ public class GuiMantenimiento extends javax.swing.JInternalFrame {
         });
 
         bt_cancelar.setText("Cancelar");
+<<<<<<< HEAD
+=======
+        bt_cancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_cancelarActionPerformed(evt);
+            }
+        });
+>>>>>>> 5fd7d53bd2d4321ed030986163cb7309bcd8a2be
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -315,9 +326,16 @@ public class GuiMantenimiento extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_bt_guardarActionPerformed
 
+<<<<<<< HEAD
     private void txt_descripcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_descripcionActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_descripcionActionPerformed
+=======
+    private void bt_cancelarActionPerformed(java.awt.event.ActionEvent evt) {
+        idCamionSeleccionado = 0;
+        limpiarFormulario();
+    }
+>>>>>>> 5fd7d53bd2d4321ed030986163cb7309bcd8a2be
 
     CamionDao dc = new CamionDao();
     // Variables declaration - do not modify//GEN-BEGIN:variables
