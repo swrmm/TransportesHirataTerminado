@@ -1,0 +1,173 @@
+DROP DATABASE IF EXISTS Transportes_Hirata_v2;
+CREATE DATABASE Transportes_Hirata_v2;
+USE Transportes_Hirata_v2;
+
+CREATE TABLE Conductor (
+    idConductor INT AUTO_INCREMENT PRIMARY KEY,
+    rut VARCHAR(12) UNIQUE NOT NULL,
+    nombre VARCHAR(100) NOT NULL,
+    licencia VARCHAR(50) NOT NULL,
+    telefono VARCHAR(20),
+    clave VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE Camion (
+    idCamion INT AUTO_INCREMENT PRIMARY KEY,
+    patente VARCHAR(10) UNIQUE NOT NULL,
+    marca VARCHAR(50) NOT NULL,
+    modelo VARCHAR(50) NOT NULL,
+    anio INT NOT NULL,
+    kilometrajeActual INT NOT NULL DEFAULT 0,
+    idConductor INT,
+    FOREIGN KEY (idConductor) REFERENCES Conductor(idConductor)
+        ON DELETE SET NULL
+);
+
+CREATE TABLE Mantenimiento (
+    idMantenimiento INT AUTO_INCREMENT PRIMARY KEY,
+    fecha DATE NOT NULL,
+    tipo VARCHAR(20) NOT NULL,
+    descripcion TEXT NOT NULL,
+    kilometrajeMantenimiento INT NOT NULL,
+    idCamion INT NOT NULL,
+    FOREIGN KEY (idCamion) REFERENCES Camion(idCamion)
+        ON DELETE CASCADE
+);
+
+CREATE TABLE Usuario (
+    idUsuario INT AUTO_INCREMENT PRIMARY KEY,
+    rut VARCHAR(15) UNIQUE NOT NULL,
+    clave VARCHAR(255) NOT NULL,
+    cargo VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE EquipoOficina (
+    idEquipo INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    tipo VARCHAR(50) NOT NULL,
+    marca VARCHAR(50),
+    modelo VARCHAR(50),
+    numeroSerie VARCHAR(100) UNIQUE,
+    estado VARCHAR(30) NOT NULL DEFAULT 'Activo'
+);
+
+CREATE TABLE MantenimientoEquipo (
+    idMantenimientoEquipo INT AUTO_INCREMENT PRIMARY KEY,
+    idEquipo INT NOT NULL,
+    fecha DATE NOT NULL,
+    tipo VARCHAR(30) NOT NULL,
+    descripcion TEXT,
+    tecnico VARCHAR(100),
+    observaciones TEXT,
+    FOREIGN KEY (idEquipo) REFERENCES EquipoOficina(idEquipo)
+        ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE ActualizacionSoftware (
+    idActualizacion INT AUTO_INCREMENT PRIMARY KEY,
+    idEquipo INT NOT NULL,
+    nombreSoftware VARCHAR(100) NOT NULL,
+    versionAnterior VARCHAR(50),
+    versionNueva VARCHAR(50) NOT NULL,
+    fechaActualizacion DATE NOT NULL,
+    responsable VARCHAR(100),
+    FOREIGN KEY (idEquipo) REFERENCES EquipoOficina(idEquipo)
+        ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE PiezaRepuesto (
+    idPieza INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    descripcion TEXT,
+    stock INT NOT NULL DEFAULT 0,
+    estado VARCHAR(30) NOT NULL DEFAULT 'Disponible'
+);
+
+CREATE TABLE MantenimientoPieza (
+    idMantenimientoEquipo INT NOT NULL,
+    idPieza INT NOT NULL,
+    cantidad INT NOT NULL DEFAULT 1,
+    PRIMARY KEY (idMantenimientoEquipo, idPieza),
+    FOREIGN KEY (idMantenimientoEquipo) REFERENCES MantenimientoEquipo(idMantenimientoEquipo)
+        ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (idPieza) REFERENCES PiezaRepuesto(idPieza)
+        ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE SensorGpsLectura (
+    idLecturaGps INT AUTO_INCREMENT PRIMARY KEY,
+    idCamion INT NOT NULL,
+    fechaHora DATETIME NOT NULL,
+    latitud DECIMAL(10, 6) NOT NULL,
+    longitud DECIMAL(10, 6) NOT NULL,
+    velocidadKmh DECIMAL(6, 2) NOT NULL,
+    ruta VARCHAR(150) NOT NULL,
+    tiempoRecorridoMinutos INT NOT NULL,
+    estadoSenal VARCHAR(20) NOT NULL DEFAULT 'Con senal',
+    CONSTRAINT fk_sensor_gps_camion
+        FOREIGN KEY (idCamion) REFERENCES Camion(idCamion)
+        ON DELETE CASCADE ON UPDATE CASCADE,
+    INDEX idx_sensor_gps_camion_fecha (idCamion, fechaHora),
+    INDEX idx_sensor_gps_ruta (ruta)
+);
+
+CREATE TABLE SensorTemperaturaLectura (
+    idLecturaTemperatura INT AUTO_INCREMENT PRIMARY KEY,
+    idCamion INT NOT NULL,
+    fechaHora DATETIME NOT NULL,
+    temperaturaCelsius DECIMAL(5, 2) NOT NULL,
+    limiteCritico DECIMAL(5, 2) NOT NULL DEFAULT 8.00,
+    estado VARCHAR(20) NOT NULL DEFAULT 'Normal',
+    observacion TEXT,
+    CONSTRAINT fk_sensor_temperatura_camion
+        FOREIGN KEY (idCamion) REFERENCES Camion(idCamion)
+        ON DELETE CASCADE ON UPDATE CASCADE,
+    INDEX idx_sensor_temp_camion_fecha (idCamion, fechaHora),
+    INDEX idx_sensor_temp_estado (estado)
+);
+
+INSERT INTO Usuario (rut, clave, cargo)
+VALUES
+    ('9.999.999-9', '12345678', 'administrador'),
+    ('11.111.111-1', '1234', 'Administrador General'),
+    ('22.222.222-2', '1234', 'Administrador IT'),
+    ('33.333.333-3', '1234', 'Tecnico de soporte'),
+    ('44.444.444-4', '1234', 'Administrador de mantenimiento'),
+    ('55.555.555-5', '1234', 'Administrador de inventario'),
+    ('66.666.666-6', '1234', 'Conductor');
+
+INSERT INTO Conductor (rut, nombre, licencia, telefono, clave)
+VALUES ('12.345.678-5', 'Conductor Demo', 'A5', '+56911111111', '1234');
+
+INSERT INTO Camion (patente, marca, modelo, anio, kilometrajeActual, idConductor)
+VALUES ('AB1234', 'Volvo', 'FH', 2020, 15000, 1);
+
+INSERT INTO Mantenimiento (fecha, tipo, descripcion, kilometrajeMantenimiento, idCamion)
+VALUES ('2026-05-10', 'preventivo', 'Cambio de aceite y revision general', 15000, 1);
+
+INSERT INTO EquipoOficina (nombre, tipo, marca, modelo, numeroSerie, estado) VALUES
+    ('PC Escritorio Administracion', 'PC', 'Dell', 'OptiPlex 3080', 'SN-001-DELL', 'Activo'),
+    ('Impresora Recepcion', 'Impresora', 'HP', 'LaserJet Pro M404n', 'SN-002-HP', 'Activo'),
+    ('Monitor Sala Reuniones', 'Monitor', 'LG', '24MK400H', 'SN-003-LG', 'Activo');
+
+INSERT INTO PiezaRepuesto (nombre, descripcion, stock, estado) VALUES
+    ('Toner HP Negro', 'Cartucho toner para HP LaserJet', 5, 'Disponible'),
+    ('Memoria RAM 8GB DDR4', 'Modulo RAM para PCs de escritorio', 3, 'Disponible'),
+    ('Disco SSD 480GB', 'Disco estado solido SATA 2.5"', 2, 'Disponible');
+
+INSERT INTO SensorGpsLectura
+    (idCamion, fechaHora, latitud, longitud, velocidadKmh, ruta, tiempoRecorridoMinutos, estadoSenal)
+VALUES
+    (1, NOW(), -33.448890, -70.669265, 72.50, 'Santiago - Valparaiso', 95, 'Con senal');
+
+INSERT INTO SensorTemperaturaLectura
+    (idCamion, fechaHora, temperaturaCelsius, limiteCritico, estado, observacion)
+VALUES
+    (1, NOW(), 6.40, 8.00, 'Normal', 'Carga dentro del rango esperado');
+
+SELECT * FROM Usuario;
+SELECT * FROM Mantenimiento;
+SELECT * FROM SensorGpsLectura;
+SELECT * FROM SensorTemperaturaLectura;
+SELECT * FROM EquipoOficina;
+SELECT * FROM PiezaRepuesto;
